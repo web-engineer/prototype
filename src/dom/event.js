@@ -451,7 +451,13 @@
           return false;
 
         Event.extend(event, element);
-        handler.call(element, event);
+        try{
+          // can throw invalid argument error in IE8 in some conditions
+          // ideally this try/catch should be replaced with a suitable type check
+          handler.call(element, event);
+        }catch(e){
+          //ignore
+        }
       };
     } else {
       // Non-custom event.
